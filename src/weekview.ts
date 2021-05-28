@@ -752,6 +752,12 @@ export class WeekViewComponent implements ICalendarComponent, OnInit, OnChanges,
     }
 
     ngOnChanges(changes: SimpleChanges) {
+        if ((changes.startHour || changes.endHour) && (!changes.startHour.isFirstChange() || !changes.endHour.isFirstChange())) {
+            this.views = undefined;
+            this.direction = 0;
+            this.refreshView();
+            this.hourColumnLabels = this.getHourColumnLabels();
+        }
         if (!this.inited) {
             return;
         }
