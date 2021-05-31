@@ -43,7 +43,7 @@ import {
         <ion-slides #weekSlider [options]="sliderOptions" [dir]="dir" (ionSlideDidChange)="onSlideChanged()"
                     class="slides-container">
             <ion-slide class="slide-container">
-                <table class="table table-bordered table-fixed weekview-header">
+                <table class="table table-bordered table-fixed weekview-header" [class.weekview-hide-weekends]="!weekends">
                     <thead>
                     <tr>
                         <th class="calendar-hour-column"></th>
@@ -61,7 +61,7 @@ import {
                     <div class="weekview-allday-table">
                         <div class="weekview-allday-label">{{allDayLabel}}</div>
                         <div class="weekview-allday-content-wrapper scroll-content">
-                            <table class="table table-fixed weekview-allday-content-table">
+                            <table class="table table-fixed weekview-allday-content-table" [class.weekview-hide-weekends]="!weekends">
                                 <tbody>
                                 <tr>
                                     <td *ngFor="let day of views[0].dates" class="calendar-cell">
@@ -76,7 +76,7 @@ import {
                     </div>
                     <init-position-scroll class="weekview-normal-event-container" [initPosition]="initScrollPosition"
                                           [emitEvent]="preserveScrollPosition" (onScroll)="setScrollPosition($event)">
-                        <table class="table table-bordered table-fixed weekview-normal-event-table">
+                        <table class="table table-bordered table-fixed weekview-normal-event-table" [class.weekview-hide-weekends]="!weekends">
                             <tbody>
                             <tr *ngFor="let row of views[0].rows; let i = index">
                                 <td class="calendar-hour-column text-center">
@@ -97,7 +97,7 @@ import {
                     <div class="weekview-allday-table">
                         <div class="weekview-allday-label">{{allDayLabel}}</div>
                         <div class="weekview-allday-content-wrapper scroll-content">
-                            <table class="table table-fixed weekview-allday-content-table">
+                            <table class="table table-fixed weekview-allday-content-table" [class.weekview-hide-weekends]="!weekends">
                                 <tbody>
                                 <tr>
                                     <td *ngFor="let day of views[0].dates" class="calendar-cell">
@@ -111,7 +111,7 @@ import {
                         </div>
                     </div>
                     <init-position-scroll class="weekview-normal-event-container" [initPosition]="initScrollPosition">
-                        <table class="table table-bordered table-fixed weekview-normal-event-table">
+                        <table class="table table-bordered table-fixed weekview-normal-event-table" [class.weekview-hide-weekends]="!weekends">
                             <tbody>
                             <tr *ngFor="let row of views[0].rows; let i = index">
                                 <td class="calendar-hour-column text-center">
@@ -129,7 +129,7 @@ import {
                 </div>
             </ion-slide>
             <ion-slide class="slide-container">
-                <table class="table table-bordered table-fixed weekview-header">
+                <table class="table table-bordered table-fixed weekview-header" [class.weekview-hide-weekends]="!weekends">
                     <thead>
                     <tr>
                         <th class="calendar-hour-column"></th>
@@ -147,7 +147,7 @@ import {
                     <div class="weekview-allday-table">
                         <div class="weekview-allday-label">{{allDayLabel}}</div>
                         <div class="weekview-allday-content-wrapper scroll-content">
-                            <table class="table table-fixed weekview-allday-content-table">
+                            <table class="table table-fixed weekview-allday-content-table" [class.weekview-hide-weekends]="!weekends">
                                 <tbody>
                                 <tr>
                                     <td *ngFor="let day of views[1].dates" class="calendar-cell">
@@ -162,7 +162,7 @@ import {
                     </div>
                     <init-position-scroll class="weekview-normal-event-container" [initPosition]="initScrollPosition"
                                           [emitEvent]="preserveScrollPosition" (onScroll)="setScrollPosition($event)">
-                        <table class="table table-bordered table-fixed weekview-normal-event-table">
+                        <table class="table table-bordered table-fixed weekview-normal-event-table" [class.weekview-hide-weekends]="!weekends">
                             <tbody>
                             <tr *ngFor="let row of views[1].rows; let i = index">
                                 <td class="calendar-hour-column text-center">
@@ -185,7 +185,7 @@ import {
                     <div class="weekview-allday-table">
                         <div class="weekview-allday-label">{{allDayLabel}}</div>
                         <div class="weekview-allday-content-wrapper scroll-content">
-                            <table class="table table-fixed weekview-allday-content-table">
+                            <table class="table table-fixed weekview-allday-content-table" [class.weekview-hide-weekends]="!weekends">
                                 <tbody>
                                 <tr>
                                     <td *ngFor="let day of views[1].dates" class="calendar-cell">
@@ -199,7 +199,7 @@ import {
                         </div>
                     </div>
                     <init-position-scroll class="weekview-normal-event-container" [initPosition]="initScrollPosition">
-                        <table class="table table-bordered table-fixed weekview-normal-event-table">
+                        <table class="table table-bordered table-fixed weekview-normal-event-table" [class.weekview-hide-weekends]="!weekends">
                             <tbody>
                             <tr *ngFor="let row of views[1].rows; let i = index">
                                 <td class="calendar-hour-column text-center">
@@ -219,7 +219,7 @@ import {
                 </div>
             </ion-slide>
             <ion-slide class="slide-container">
-                <table class="table table-bordered table-fixed weekview-header">
+                <table class="table table-bordered table-fixed weekview-header" [class.weekview-hide-weekends]="!weekends">
                     <thead>
                     <tr>
                         <th class="calendar-hour-column"></th>
@@ -237,7 +237,7 @@ import {
                     <div class="weekview-allday-table">
                         <div class="weekview-allday-label">{{allDayLabel}}</div>
                         <div class="weekview-allday-content-wrapper scroll-content">
-                            <table class="table table-fixed weekview-allday-content-table">
+                            <table class="table table-fixed weekview-allday-content-table" [class.weekview-hide-weekends]="!weekends">
                                 <tbody>
                                 <tr>
                                     <td *ngFor="let day of views[2].dates" class="calendar-cell">
@@ -252,7 +252,7 @@ import {
                     </div>
                     <init-position-scroll class="weekview-normal-event-container" [initPosition]="initScrollPosition"
                                           [emitEvent]="preserveScrollPosition" (onScroll)="setScrollPosition($event)">
-                        <table class="table table-bordered table-fixed weekview-normal-event-table">
+                        <table class="table table-bordered table-fixed weekview-normal-event-table" [class.weekview-hide-weekends]="!weekends">
                             <tbody>
                             <tr *ngFor="let row of views[2].rows; let i = index">
                                 <td class="calendar-hour-column text-center">
@@ -275,7 +275,7 @@ import {
                     <div class="weekview-allday-table">
                         <div class="weekview-allday-label">{{allDayLabel}}</div>
                         <div class="weekview-allday-content-wrapper scroll-content">
-                            <table class="table table-fixed weekview-allday-content-table">
+                            <table class="table table-fixed weekview-allday-content-table" [class.weekview-hide-weekends]="!weekends">
                                 <tbody>
                                 <tr>
                                     <td *ngFor="let day of views[2].dates" class="calendar-cell">
@@ -289,7 +289,7 @@ import {
                         </div>
                     </div>
                     <init-position-scroll class="weekview-normal-event-container" [initPosition]="initScrollPosition">
-                        <table class="table table-bordered table-fixed weekview-normal-event-table">
+                        <table class="table table-bordered table-fixed weekview-normal-event-table" [class.weekview-hide-weekends]="!weekends">
                             <tbody>
                             <tr *ngFor="let row of views[2].rows; let i = index">
                                 <td class="calendar-hour-column text-center">
@@ -538,6 +538,7 @@ export class WeekViewComponent implements ICalendarComponent, OnInit, OnChanges,
     @Input() endHour: number;
     @Input() sliderOptions: any;
     @Input() hourSegments: number;
+    @Input() weekends = true;
 
     @Output() onRangeChanged = new EventEmitter<IRange>();
     @Output() onEventSelected = new EventEmitter<IEvent>();
@@ -754,6 +755,7 @@ export class WeekViewComponent implements ICalendarComponent, OnInit, OnChanges,
     ngOnChanges(changes: SimpleChanges) {
         if ((changes.startHour || changes.endHour) && (!changes.startHour.isFirstChange() || !changes.endHour.isFirstChange())) {
             this.views = undefined;
+            this.hourRange = (this.endHour - this.startHour) * this.hourSegments;
             this.direction = 0;
             this.refreshView();
             this.hourColumnLabels = this.getHourColumnLabels();

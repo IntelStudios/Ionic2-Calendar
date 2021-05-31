@@ -429,6 +429,7 @@ export class DayViewComponent implements ICalendarComponent, OnInit, OnChanges, 
     @Input() endHour: number;
     @Input() sliderOptions: any;
     @Input() hourSegments: number;
+    @Input() weekends = true;
 
     @Output() onRangeChanged = new EventEmitter<IRange>();
     @Output() onEventSelected = new EventEmitter<IEvent>();

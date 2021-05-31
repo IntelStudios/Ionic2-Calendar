@@ -90,6 +90,7 @@ export interface ICalendarComponent {
     mode: CalendarMode;
     range: IRange;
     views: IView[];
+    weekends: boolean;
     onDataLoaded: { (): void };
     onRangeChanged: EventEmitter<IRange>;
 }
@@ -237,6 +238,7 @@ export enum Step {
                 [locale]="locale"
                 [dateFormatter]="dateFormatter"
                 [dir]="dir"
+                [weekends]="weekends"
                 [lockSwipeToPrev]="lockSwipeToPrev"
                 [lockSwipes]="lockSwipes"
                 [sliderOptions]="sliderOptions"
@@ -266,6 +268,7 @@ export enum Step {
                 [locale]="locale"
                 [dateFormatter]="dateFormatter"
                 [dir]="dir"
+                [weekends]="weekends"
                 [scrollToHour]="scrollToHour"
                 [preserveScrollPosition]="preserveScrollPosition"
                 [lockSwipeToPrev]="lockSwipeToPrev"
@@ -295,6 +298,7 @@ export enum Step {
                 [locale]="locale"
                 [dateFormatter]="dateFormatter"
                 [dir]="dir"
+                [weekends]="weekends"
                 [scrollToHour]="scrollToHour"
                 [preserveScrollPosition]="preserveScrollPosition"
                 [lockSwipeToPrev]="lockSwipeToPrev"
@@ -413,6 +417,7 @@ export class CalendarComponent implements OnInit {
     @Input() startHour:number = 0;
     @Input() endHour:number = 24;
     @Input() sliderOptions:any;
+    @Input() weekends = true;
 
     @Output() onCurrentDateChanged = new EventEmitter<Date>();
     @Output() onRangeChanged = new EventEmitter<IRange>();
@@ -437,6 +442,10 @@ export class CalendarComponent implements OnInit {
                 this.autoSelect = true;
             }
         }
+        if (!this.weekends) {
+            this.startingDayMonth = 1;
+            this.startingDayWeek = 1;
+        }
         this.hourSegments = 60 / this.timeInterval;
         this.hourParts = 60 / this.step;
         if(this.hourParts <= this.hourSegments) {
@@ -453,6 +462,7 @@ export class CalendarComponent implements OnInit {
             this.onCurrentDateChanged.emit(currentDate);
         });
     }
+
 
     ngOnDestroy() {
         if (this.currentDateChangedFromChildrenSubscription) {

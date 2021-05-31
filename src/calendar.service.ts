@@ -1,7 +1,7 @@
-import {Injectable} from '@angular/core';
-import {Observable, Subject} from 'rxjs';
+import { Injectable } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
 
-import {ICalendarComponent, IView, CalendarMode, QueryMode} from './calendar';
+import { ICalendarComponent, IView, CalendarMode, QueryMode } from './calendar';
 
 @Injectable()
 export class CalendarService {
@@ -88,7 +88,7 @@ export class CalendarService {
         }
     }
 
-    getAdjacentCalendarDate(mode: CalendarMode, direction: number): Date {
+    getAdjacentCalendarDate(mode: CalendarMode, direction: number, weekends = true): Date {
         let calculateCalendarDate = this.currentDate;
         const step = this.getStep(mode),
             year = calculateCalendarDate.getFullYear() + direction * step.years,
@@ -96,6 +96,11 @@ export class CalendarService {
             date = calculateCalendarDate.getDate() + direction * step.days;
 
         calculateCalendarDate = new Date(year, month, date, 12, 0, 0);
+        if (!weekends) {
+            const weekendDay = calculateCalendarDate.getDay() - 4;
+            if (weekendDay > 0) {
+            }
+        }
 
         if (mode === 'month') {
             const firstDayInNextMonth = new Date(year, month + 1, 1, 12, 0, 0);
@@ -103,11 +108,12 @@ export class CalendarService {
                 calculateCalendarDate = new Date(firstDayInNextMonth.getTime() - 24 * 60 * 60 * 1000);
             }
         }
+        console.log('adjacent date', calculateCalendarDate);
         return calculateCalendarDate;
     }
 
     getAdjacentViewStartTime(component: ICalendarComponent, direction: number): Date {
-        let adjacentCalendarDate = this.getAdjacentCalendarDate(component.mode, direction);
+        let adjacentCalendarDate = this.getAdjacentCalendarDate(component.mode, direction, component.weekends);
         return component.getRange(adjacentCalendarDate).startTime;
     }
 

@@ -25,7 +25,7 @@ import {IMonthViewDisplayEventTemplateContext} from './calendar';
         <div>
             <ion-slides #monthSlider [options]="sliderOptions" [dir]="dir" (ionSlideDidChange)="onSlideChanged()">
                 <ion-slide>
-                    <table *ngIf="0===currentViewIndex" class="table table-bordered table-fixed monthview-datetable">
+                    <table *ngIf="0===currentViewIndex" class="table table-bordered table-fixed monthview-datetable" [class.monthview-hide-weekends]="!weekends">
                         <thead>
                         <tr>
                             <th *ngFor="let dayHeader of views[0].dayHeaders">
@@ -35,8 +35,8 @@ import {IMonthViewDisplayEventTemplateContext} from './calendar';
                         </thead>
                         <tbody>
                         <tr *ngFor="let row of [0,1,2,3,4,5]">
-                            <td *ngFor="let col of [0,1,2,3,4,5,6]" tappable (click)="select(views[0].dates[row*7+col])"
-                                [ngClass]="getHighlightClass(views[0].dates[row*7+col])">
+                            <td *ngFor="let col of dayColumns" tappable (click)="select(views[0].dates[row*dayColumns.length+col])"
+                                [ngClass]="getHighlightClass(views[0].dates[row*dayColumns.length+col])">
                                 <ng-template [ngTemplateOutlet]="monthviewDisplayEventTemplate"
                                              [ngTemplateOutletContext]="{view: views[0], row: row, col: col}">
                                 </ng-template>
@@ -54,7 +54,7 @@ import {IMonthViewDisplayEventTemplateContext} from './calendar';
                         </thead>
                         <tbody>
                         <tr *ngFor="let row of [0,1,2,3,4,5]">
-                            <td *ngFor="let col of [0,1,2,3,4,5,6]">
+                            <td *ngFor="let col of dayColumns">
                                 <ng-template [ngTemplateOutlet]="monthviewInactiveDisplayEventTemplate"
                                              [ngTemplateOutletContext]="{view: views[0], row: row, col: col}">
                                 </ng-template>
@@ -64,7 +64,7 @@ import {IMonthViewDisplayEventTemplateContext} from './calendar';
                     </table>
                 </ion-slide>
                 <ion-slide>
-                    <table *ngIf="1===currentViewIndex" class="table table-bordered table-fixed monthview-datetable">
+                    <table *ngIf="1===currentViewIndex" class="table table-bordered table-fixed monthview-datetable" [class.monthview-hide-weekends]="!weekends">
                         <thead>
                         <tr>
                             <th *ngFor="let dayHeader of views[1].dayHeaders">
@@ -74,8 +74,8 @@ import {IMonthViewDisplayEventTemplateContext} from './calendar';
                         </thead>
                         <tbody>
                         <tr *ngFor="let row of [0,1,2,3,4,5]">
-                            <td *ngFor="let col of [0,1,2,3,4,5,6]" tappable (click)="select(views[1].dates[row*7+col])"
-                                [ngClass]="getHighlightClass(views[1].dates[row*7+col])">
+                            <td *ngFor="let col of dayColumns" tappable (click)="select(views[1].dates[row*dayColumns.length+col])"
+                                [ngClass]="getHighlightClass(views[1].dates[row*dayColumns.length+col])">
                                 <ng-template [ngTemplateOutlet]="monthviewDisplayEventTemplate"
                                              [ngTemplateOutletContext]="{view: views[1], row: row, col: col}">
                                 </ng-template>
@@ -93,7 +93,7 @@ import {IMonthViewDisplayEventTemplateContext} from './calendar';
                         </thead>
                         <tbody>
                         <tr *ngFor="let row of [0,1,2,3,4,5]">
-                            <td *ngFor="let col of [0,1,2,3,4,5,6]">
+                            <td *ngFor="let col of dayColumns">
                                 <ng-template [ngTemplateOutlet]="monthviewInactiveDisplayEventTemplate"
                                              [ngTemplateOutletContext]="{view: views[1], row: row, col: col}">
                                 </ng-template>
@@ -103,7 +103,7 @@ import {IMonthViewDisplayEventTemplateContext} from './calendar';
                     </table>
                 </ion-slide>
                 <ion-slide>
-                    <table *ngIf="2===currentViewIndex" class="table table-bordered table-fixed monthview-datetable">
+                    <table *ngIf="2===currentViewIndex" class="table table-bordered table-fixed monthview-datetable" [class.monthview-hide-weekends]="!weekends">
                         <thead>
                         <tr>
                             <th *ngFor="let dayHeader of views[2].dayHeaders">
@@ -113,7 +113,7 @@ import {IMonthViewDisplayEventTemplateContext} from './calendar';
                         </thead>
                         <tbody>
                         <tr *ngFor="let row of [0,1,2,3,4,5]">
-                            <td *ngFor="let col of [0,1,2,3,4,5,6]" tappable (click)="select(views[2].dates[row*7+col])"
+                            <td *ngFor="let col of dayColumns" tappable (click)="select(views[2].dates[row*7+col])"
                                 [ngClass]="getHighlightClass(views[2].dates[row*7+col])">
                                 <ng-template [ngTemplateOutlet]="monthviewDisplayEventTemplate"
                                              [ngTemplateOutletContext]="{view: views[2], row: row, col: col}">
@@ -132,7 +132,7 @@ import {IMonthViewDisplayEventTemplateContext} from './calendar';
                         </thead>
                         <tbody>
                         <tr *ngFor="let row of [0,1,2,3,4,5]">
-                            <td *ngFor="let col of [0,1,2,3,4,5,6]">
+                            <td *ngFor="let col of dayColumns">
                                 <ng-template [ngTemplateOutlet]="monthviewInactiveDisplayEventTemplate"
                                              [ngTemplateOutletContext]="{view: views[2], row: row, col: col}">
                                 </ng-template>
@@ -264,6 +264,7 @@ export class MonthViewComponent implements ICalendarComponent, OnInit, OnDestroy
     @Input() lockSwipeToPrev: boolean;
     @Input() lockSwipes: boolean;
     @Input() sliderOptions: any;
+    @Input() weekends = true;
 
     @Output() onRangeChanged = new EventEmitter<IRange>();
     @Output() onEventSelected = new EventEmitter<IEvent>();
@@ -276,6 +277,8 @@ export class MonthViewComponent implements ICalendarComponent, OnInit, OnDestroy
     public range: IRange;
     public mode: CalendarMode = 'month';
     public direction = 0;
+
+    dayColumns: number[];
 
     private moveOnSelected = false;
     private inited = false;
@@ -290,7 +293,7 @@ export class MonthViewComponent implements ICalendarComponent, OnInit, OnDestroy
     private formatDayHeaderLabel: (date: Date) => string;
     private formatTitle: (date: Date) => string;
 
-    static getDates(startDate: Date, n: number): Date[] {
+    getDates(startDate: Date, n: number): Date[] {
         const dates = new Array(n),
             current = new Date(startDate.getTime());
         let i = 0;
@@ -302,6 +305,7 @@ export class MonthViewComponent implements ICalendarComponent, OnInit, OnDestroy
     }
 
     ngOnInit() {
+        this.createDayColumns();
         if (!this.sliderOptions) {
             this.sliderOptions = {};
         }
@@ -389,8 +393,13 @@ export class MonthViewComponent implements ICalendarComponent, OnInit, OnDestroy
     }
 
     ngOnChanges(changes: SimpleChanges) {
+
         if (!this.inited) {
             return;
+        }
+        if (changes.weekends && !changes.weekends.isFirstChange()) {
+            this.createDayColumns();
+            this.refreshView();
         }
 
         const eventSourceChange = changes.eventSource;
@@ -452,7 +461,7 @@ export class MonthViewComponent implements ICalendarComponent, OnInit, OnDestroy
 
         this.direction = direction;
         if (!this.moveOnSelected) {
-            const adjacentDate = this.calendarService.getAdjacentCalendarDate(this.mode, direction);
+            const adjacentDate = this.calendarService.getAdjacentCalendarDate(this.mode, direction, this.weekends);
             this.calendarService.setCurrentDate(adjacentDate);
         }
         this.refreshView();
@@ -480,7 +489,7 @@ export class MonthViewComponent implements ICalendarComponent, OnInit, OnDestroy
             date = startDate.getDate(),
             month = (startDate.getMonth() + (date !== 1 ? 1 : 0)) % 12;
 
-        const dates = MonthViewComponent.getDates(startDate, 42);
+        const dates = this.getDates(startDate, 42);
         const days: IMonthViewRow[] = [];
         for (let i = 0; i < 42; i++) {
             const dateObject = this.createDateObject(dates[i]);
@@ -489,7 +498,7 @@ export class MonthViewComponent implements ICalendarComponent, OnInit, OnDestroy
         }
 
         const dayHeaders: string[] = [];
-        for (let i = 0; i < 7; i++) {
+        for (let i = 0; i < this.dayColumns.length; i++) {
             dayHeaders.push(this.formatDayHeaderLabel(days[i].date));
         }
         return {
@@ -543,9 +552,8 @@ export class MonthViewComponent implements ICalendarComponent, OnInit, OnDestroy
         const year = currentDate.getFullYear(),
             month = currentDate.getMonth(),
             firstDayOfMonth = new Date(year, month, 1, 12, 0, 0), // set hour to 12 to avoid DST problem
-
             difference = this.startingDayMonth - firstDayOfMonth.getDay(),
-            numDisplayedFromPreviousMonth = (difference > 0) ? 7 - difference : -difference,
+            numDisplayedFromPreviousMonth = (difference > 0) ? this.dayColumns.length - difference : -difference,
             startDate = new Date(firstDayOfMonth.getTime());
 
         if (numDisplayedFromPreviousMonth > 0) {
@@ -678,6 +686,10 @@ export class MonthViewComponent implements ICalendarComponent, OnInit, OnDestroy
         return this.formatTitle(headerDate);
     }
 
+    private createDayColumns() {
+        this.dayColumns = [...Array(7).keys()];
+    }
+
     private compareEvent(event1: IEvent, event2: IEvent): number {
         if (event1.allDay) {
             return 1;
@@ -727,6 +739,7 @@ export class MonthViewComponent implements ICalendarComponent, OnInit, OnDestroy
                     dates[selectedDayDifference].selected = true;
                     this.selectedDate = dates[selectedDayDifference];
                 }
+                console.log(this)
             } else {
                 this.moveOnSelected = true;
                 this.slideView(direction);
