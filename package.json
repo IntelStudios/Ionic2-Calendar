@@ -1,5 +1,5 @@
 {
-    "name": "ionic2-calendar",
+    "name": "@intelstudios/ionic2-calendar",
     "version": "2.5.0",
     "description": "Ionic calendar component",
     "keywords": [
@@ -15,7 +15,8 @@
         "url": "git+https://github.com/twinssbc/Ionic2-Calendar.git"
     },
     "scripts": {
-        "build": "rm -rf dist && ng build --configuration production && cd dist && npm pack --quiet"
+        "build": "rm -rf dist && ng build --configuration production && cd dist && npm pack --quiet",
+        "publish": "rm -rf dist && ng build --configuration production && npm publish ./dist/"
     },
     "dependencies": {
         "tslib": "^2.3.0"
