@@ -1,9 +1,9 @@
 {
     "name": "ionic2-calendar",
-    "version": "0.6.7",
-    "description": "Ionic2 calendar component",
+    "version": "2.5.0",
+    "description": "Ionic calendar component",
     "keywords": [
-        "Ionic2",
+        "Ionic",
         "calendar"
     ],
     "author": {
@@ -15,40 +15,23 @@
         "url": "git+https://github.com/twinssbc/Ionic2-Calendar.git"
     },
     "scripts": {
-        "build": "rm -rf dist && npm run build.ng",
-        "build.ng": "ng-packagr -p package.json",
-        "build.es2015": "node_modules/.bin/ngc -p tsconfig.json",
-        "dev": "tsc --watch",
-        "postinstall": "ngcc"
+        "build": "rm -rf dist && ng build --configuration production && cd dist && npm pack --quiet"
     },
-    "main": "./index.js",
-    "dependencies": {},
+    "dependencies": {
+        "tslib": "^2.3.0"
+    },
     "peerDependencies": {
-        "@angular/core": ">=9.1.0",
-        "@angular/forms": ">=9.1.0",
-        "@angular/router": ">=9.1.0",
-        "rxjs": ">=6.5.4",
-        "zone.js": ">=0.10.2",
-        "@ionic/angular": ">=5.1.0"
+        "@angular/common": "^18.0.0",
+        "@angular/core": "^18.0.0",
+        "@ionic/angular": "^8.0.0",
+        "swiper": "^11.0.0"
     },
     "devDependencies": {
-        "typescript": "3.8.3",
-        "@angular/common": "9.1.0",
-        "@angular/compiler": "9.1.0",
-        "@angular/compiler-cli": "9.1.0",
-        "@angular/core": "9.1.0",
-        "@angular/forms": "9.1.0",
-        "@angular/platform-browser": "9.1.0",
-        "@angular/platform-browser-dynamic": "9.1.0",
-        "@ionic/angular": "5.1.0",
-        "@angular/router": "9.1.0",
-        "ng-packagr": "9.1.0",
-        "rxjs": "^6.5.4",
-        "zone.js": "^0.10.2"
-    },
-    "ngPackage": {
-        "lib": {
-            "entryFile": "src/index.ts"
-        }
+        "@angular-devkit/build-angular": "^18.0.0",
+        "@angular/cli": "^18.0.0",
+        "@angular/compiler": "^18.0.0",
+        "@angular/compiler-cli": "^18.0.0",
+        "ng-packagr": "^18.0.0",
+        "typescript": "~5.4.5"
     }
 }
