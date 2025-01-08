@@ -15,7 +15,7 @@
         "url": "git+https://github.com/twinssbc/Ionic2-Calendar.git"
     },
     "scripts": {
-        "build": "rm -rf dist && ng build"
+        "build": "rm -rf dist && ng build --configuration production && cd dist && npm pack --quiet"
     },
     "dependencies": {
         "tslib": "^2.3.0"
